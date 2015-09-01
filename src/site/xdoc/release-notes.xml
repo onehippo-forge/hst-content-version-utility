@@ -36,6 +36,12 @@
       </table>
     </section>
     <section name="Release Notes">
+      <subsection name="0.1.1">
+        <ul>
+          <li>Proxying HippoNode for frozen node</li>
+          <li>Fallback to the current live variant node if the only version found is jcr:rootVersion.</li>
+        </ul>
+      </subsection>
       <subsection name="0.1.0">
         <p>Initial Release</p>
       </subsection>
