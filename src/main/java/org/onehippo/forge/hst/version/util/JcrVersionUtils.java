@@ -36,6 +36,11 @@ import org.hippoecm.repository.api.HippoNodeType;
  */
 public class JcrVersionUtils {
 
+    /**
+     * Root version name.
+     */
+    public static final String ROOT_VERSION_NAME = "jcr:rootVersion";
+
     private JcrVersionUtils() {
     }
 
@@ -77,47 +82,50 @@ public class JcrVersionUtils {
     }
 
     /**
-     * Finds the latest version of the {@code versionableNode} as of {@code asOf} datetime.
+     * Finds the root version of the {@code versionableNode} from the given {@code linearVersions}.
+     * @param versionableNode versionable node (type of mix:versionable)
+     * @param linearVersions linear versions list
+     * @return the root version of the {@code versionableNode}
+     * @throws RepositoryException if unexpected repository exception occurs
+     */
+    public static Version getRootVersion(final Node versionableNode, final List<Version> linearVersions) throws RepositoryException {
+        Version rootVersion = null;
+
+        for (Version version : linearVersions) {
+            if (ROOT_VERSION_NAME.equals(version.getName())) {
+                rootVersion = version;
+                break;
+            }
+        }
+
+        return rootVersion;
+    }
+
+    /**
+     * Finds the latest version of the {@code versionableNode} as of {@code asOf} datetime
+     * from the given {@code linearVersions}.
      * If {@code asOf} is null, then returns the latest version.
-     * @param versionableNode versionable node (type of mix:versionable).
+     * @param versionableNode versionable node (type of mix:versionable)
+     * @param linearVersions linear versions list
      * @param asOf {@code asOf} datetime
      * @return the latest version of the {@code versionableNode} as of {@code asOf} datetime
      *         If {@code asOf} is null, then returns the latest version.
      * @throws RepositoryException if unexpected repository exception occurs
      */
-    public static Version getVersionAsOf(final Node versionableNode, final Calendar asOf) throws RepositoryException {
+    public static Version getVersionAsOf(final Node versionableNode, final List<Version> linearVersions, final Calendar asOf) throws RepositoryException {
         Version asOfVersion = null;
 
-        VersionManager versionManager = versionableNode.getSession().getWorkspace().getVersionManager();
-        VersionHistory versionHistory = versionManager.getVersionHistory(versionableNode.getPath());
+        if (asOf == null) {
+            return getRootVersion(versionableNode, linearVersions);
+        } else {
+            for (Version version : linearVersions) {
+                Calendar created = version.getCreated();
+                int compare = created.compareTo(asOf);
 
-        if (versionHistory != null) {
-            VersionIterator versionIt = versionHistory.getAllLinearVersions();
-            long size = versionIt.getSize();
-
-            if (size > 0 || size == -1) {
-                Version version;
-
-                if (asOf != null) {
-                    Calendar created;
-                    int compare;
-
-                    while (versionIt.hasNext()) {
-                        version = versionIt.nextVersion();
-                        created = version.getCreated();
-                        compare = created.compareTo(asOf);
-
-                        if (compare <= 0) {
-                            asOfVersion = version;
-                        } else {
-                            break;
-                        }
-                    }
+                if (compare <= 0) {
+                    asOfVersion = version;
                 } else {
-                    while (versionIt.hasNext()) {
-                        version = versionIt.nextVersion();
-                        asOfVersion = version;
-                    }
+                    break;
                 }
             }
         }

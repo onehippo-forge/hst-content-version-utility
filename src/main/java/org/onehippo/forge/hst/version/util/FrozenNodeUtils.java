@@ -32,6 +32,7 @@ import org.apache.commons.proxy.Interceptor;
 import org.apache.commons.proxy.Invocation;
 import org.apache.commons.proxy.ProxyFactory;
 import org.apache.jackrabbit.commons.iterator.NodeIteratorAdapter;
+import org.hippoecm.repository.HippoStdNodeType;
 import org.hippoecm.repository.api.HippoNode;
 import org.hippoecm.repository.api.Localized;
 
@@ -161,7 +162,7 @@ public class FrozenNodeUtils {
 
         NonFrozenPretenderNode pretenderNode = null;
 
-        if (frozenNode instanceof HippoNode) {
+        if (frozenNode instanceof HippoNode || frozenNode.hasProperty(HippoStdNodeType.HIPPOSTD_STATE)) {
             pretenderNode = (NonFrozenPretenderNode) proxyFactory
                 .createInterceptorProxy(frozenNode, nodeInterceptor, NON_FROZEN_PRETENDER_HIPPO_NODE_CLASSES);
         } else {

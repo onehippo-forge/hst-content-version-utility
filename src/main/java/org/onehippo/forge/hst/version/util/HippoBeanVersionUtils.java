@@ -16,6 +16,7 @@
 package org.onehippo.forge.hst.version.util;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.jcr.Credentials;
 import javax.jcr.Node;
@@ -26,6 +27,7 @@ import javax.jcr.version.Version;
 
 import org.hippoecm.hst.container.RequestContextProvider;
 import org.hippoecm.hst.content.beans.NodeAware;
+import org.hippoecm.hst.content.beans.manager.ObjectBeanManager;
 import org.hippoecm.hst.content.beans.manager.ObjectConverter;
 import org.hippoecm.hst.content.beans.manager.ObjectConverterAware;
 import org.hippoecm.hst.content.beans.standard.HippoBean;
@@ -46,12 +48,6 @@ import org.slf4j.LoggerFactory;
 public class HippoBeanVersionUtils {
 
     private static Logger log = LoggerFactory.getLogger(HippoBeanVersionUtils.class);
-
-    /**
-     * The marker version name which is interally used by Hippo Repository in the version storage.
-     * Normally this marker version can be ignored in most use cases.
-     */
-    private static final String HIPPO_INIT_EMPTY_VERSION_NAME = "jcr:rootVersion";
 
     private HippoBeanVersionUtils() {
     }
@@ -81,15 +77,7 @@ public class HippoBeanVersionUtils {
         T versionedBean = null;
 
         final HstRequestContext requestContext = RequestContextProvider.get();
-        ObjectConverter objectConverter = null;
-
-        if (requestContext != null) {
-            objectConverter = requestContext.getContentBeansTool().getObjectConverter();
-        }
-
-        if (objectConverter == null) {
-            objectConverter = HstServices.getComponentManager().getComponent(ObjectConverter.class.getName());
-        }
+        final ObjectConverter objectConverter = requestContext.getContentBeansTool().getObjectConverter();
 
         Session previewSession = null;
 
@@ -101,20 +89,28 @@ public class HippoBeanVersionUtils {
                 final Node versionableNode = JcrVersionUtils.getVersionableNode(handleNode);
 
                 if (versionableNode != null) {
-                    Version version = JcrVersionUtils.getVersionAsOf(versionableNode, asOf);
+                    List<Version> linearVersions = JcrVersionUtils.getAllLinearVersions(versionableNode);
+                    Version version = JcrVersionUtils.getVersionAsOf(versionableNode, linearVersions, asOf);
 
-                    if (version != null && !HIPPO_INIT_EMPTY_VERSION_NAME.equals(version.getName())) {
-                        final Node frozenNode = version.getFrozenNode();
-                        final NonFrozenPretenderNode nonFrozenPretender =
-                            FrozenNodeUtils.getNonFrozenPretenderNode(frozenNode, version.getCreated(), asOf);
-                        versionedBean = documentBeanClass.newInstance();
+                    if (version != null) {
+                        if (JcrVersionUtils.ROOT_VERSION_NAME.equals(version.getName()) &&
+                            linearVersions.size() == 1) {
+                            // there's no versions yet.. so simply fallback to the original document at the handle path.
+                            ObjectBeanManager obm = requestContext.getObjectBeanManager();
+                            versionedBean = (T) obm.getObject(canonicalHandlePath);
+                        } else {
+                            final Node frozenNode = version.getFrozenNode();
+                            final NonFrozenPretenderNode nonFrozenPretender =
+                                FrozenNodeUtils.getNonFrozenPretenderNode(frozenNode, version.getCreated(), asOf);
+                            versionedBean = documentBeanClass.newInstance();
 
-                        if (versionedBean instanceof NodeAware) {
-                            ((NodeAware) versionedBean).setNode(nonFrozenPretender);
-                        }
+                            if (versionedBean instanceof NodeAware) {
+                                ((NodeAware) versionedBean).setNode(nonFrozenPretender);
+                            }
 
-                        if (versionedBean instanceof ObjectConverterAware) {
-                            ((ObjectConverterAware) versionedBean).setObjectConverter(objectConverter);
+                            if (versionedBean instanceof ObjectConverterAware) {
+                                ((ObjectConverterAware) versionedBean).setObjectConverter(objectConverter);
+                            }
                         }
                     }
                 }
