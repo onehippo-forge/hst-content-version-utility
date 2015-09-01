@@ -93,11 +93,17 @@ public class HippoBeanVersionUtils {
                     Version version = JcrVersionUtils.getVersionAsOf(versionableNode, linearVersions, asOf);
 
                     if (version != null) {
-                        if (JcrVersionUtils.ROOT_VERSION_NAME.equals(version.getName()) &&
-                            linearVersions.size() == 1) {
-                            // there's no versions yet.. so simply fallback to the original document at the handle path.
-                            ObjectBeanManager obm = requestContext.getObjectBeanManager();
-                            versionedBean = (T) obm.getObject(canonicalHandlePath);
+                        if (JcrVersionUtils.ROOT_VERSION_NAME.equals(version.getName())) {
+                            if (linearVersions.size() == 1) {
+                                // there's no versions yet.. so simply fallback to the original document at the handle path.
+                                ObjectBeanManager obm = requestContext.getObjectBeanManager();
+                                versionedBean = (T) obm.getObject(canonicalHandlePath);
+                            } else {
+                                // New version has probably started after the initial publication by user.
+                                // In this case, we cannot assume the root version to be the same of the current live variant.
+                                // So, sorry, but we have to return null.. :(
+                                versionedBean = null;
+                            }
                         } else {
                             final Node frozenNode = version.getFrozenNode();
                             final NonFrozenPretenderNode nonFrozenPretender =
