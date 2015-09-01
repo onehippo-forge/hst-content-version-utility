@@ -24,8 +24,33 @@
   <body>
     <section name="HST Content Version Utilities">
       <p>
-        This project provides ...
+        This project provides utilities to retrieve versioned, frozen node content using HST Content Beans.
       </p>
+      <subsection name="Retrieving a content which was effective at a specific date time ('as-of' date time)">
+        <div class="brush: java">
+        <source><![CDATA[
+        final HstRequestContext requestContext = RequestContextProvider.get();
+
+        // Suppose you want to retrieve a versioned, frozen content of the current news article content
+        // which was effective five days ago.
+
+        News news = requestContext.getContentBean();
+        Calendar liveVersionAsOf = Calendar.getInstance();
+        liveVersionAsOf.add(Calendar.DAY_OF_YEAR, -5);
+
+        news = HippoBeanVersionUtils.getVersionedBeanAsOf(news.getCanonicalHandlePath(),
+                                                          News.class,
+                                                          liveVersionAsOf);
+
+        if (news == null) {
+            log.warn("No version available for the news at '{}'.", news.getPath());
+        } else {
+            log.debug("Versioned, frozen content of the news article is available which was effective 5 days ago.");
+            request.setAttribute("document", news);
+        }
+        ]]></source>
+        </div>
+      </subsection>
     </section>
   </body>
 </document>
