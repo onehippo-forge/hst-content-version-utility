@@ -31,8 +31,13 @@
 
     <javax.jcr.version>2.0</javax.jcr.version>
 
+    <jackrabbit.version>2.7.0</jackrabbit.version>
+
     <hippo.repository.version>2.26.15</hippo.repository.version>
     <hippo.hst.version>2.28.12</hippo.hst.version>
+
+    <commons-lang.version>2.6</commons-lang.version>
+    <commons-proxy.version>1.0</commons-proxy.version>
 
     <lib.junit.version>4.8.2</lib.junit.version>
     <lib.easymock.version>3.0</lib.easymock.version>
@@ -122,8 +127,22 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.jackrabbit</groupId>
+      <artifactId>jackrabbit-jcr-commons</artifactId>
+      <version>${jackrabbit.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
       <groupId>org.onehippo.cms7</groupId>
       <artifactId>hippo-repository-api</artifactId>
+      <version>${hippo.repository.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.onehippo.cms7</groupId>
+      <artifactId>hippo-repository-builtin</artifactId>
       <version>${hippo.repository.version}</version>
       <scope>provided</scope>
     </dependency>
@@ -132,7 +151,14 @@
       <groupId>org.onehippo.cms7.hst</groupId>
       <artifactId>hst-api</artifactId>
       <version>${hippo.hst.version}</version>
-      <scope>optional</scope>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.onehippo.cms7.hst</groupId>
+      <artifactId>hst-commons</artifactId>
+      <version>${hippo.hst.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -140,6 +166,30 @@
       <artifactId>slf4j-api</artifactId>
       <version>${lib.slf4j.version}</version>
       <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>${commons-lang.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-proxy</artifactId>
+      <version>${commons-proxy.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <!-- TEST DEPENDENCIES -->
@@ -218,7 +268,7 @@
           <xmlOutput>true</xmlOutput>
           <xdocsOutput>true</xdocsOutput>
           <xmlOutputDirectory>target/site</xmlOutputDirectory>
-          <onlyAnalyze>org.onehippo.forge.hst.version.util.*</onlyAnalyze>
+          <onlyAnalyze>org.onehippo.forge.hst.version.*</onlyAnalyze>
           <effort>Max</effort>
           <threshold>High</threshold>
           <relaxed>true</relaxed>
