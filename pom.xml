@@ -21,7 +21,7 @@
   <description>HST Content Version Utilities</description>
   <groupId>org.onehippo.forge.hst-versionutil</groupId>
   <artifactId>hst-versionutil</artifactId>
-  <version>0.1.3</version>
+  <version>0.1.4-SNAPSHOT</version>
   <url>http://hst-versionutil.forge.onehippo.org/</url>
 
   <properties>
@@ -87,9 +87,9 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:https://forge.onehippo.org/svn/hst-versionutil/tags/hst-versionutil-0.1.3</connection>
-    <developerConnection>scm:svn:https://forge.onehippo.org/svn/hst-versionutil/tags/hst-versionutil-0.1.3</developerConnection>
-    <url>https://forge.onehippo.org/svn/hst-versionutil/tags/hst-versionutil-0.1.3</url>
+    <connection>scm:svn:https://forge.onehippo.org/svn/hst-versionutil/trunk</connection>
+    <developerConnection>scm:svn:https://forge.onehippo.org/svn/hst-versionutil/trunk</developerConnection>
+    <url>https://forge.onehippo.org/svn/hst-versionutil/trunk</url>
   </scm>
 
   <issueManagement>
