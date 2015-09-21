@@ -28,8 +28,10 @@ import javax.jcr.version.VersionHistory;
 import javax.jcr.version.VersionIterator;
 import javax.jcr.version.VersionManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.hippoecm.repository.HippoStdNodeType;
 import org.hippoecm.repository.api.HippoNodeType;
+import org.hippoecm.repository.util.JcrUtils;
 
 /**
  * JCR Version Utilities.
@@ -65,7 +67,7 @@ public class JcrVersionUtils {
         String variantState;
         Node variantNode;
 
-        for (NodeIterator nodeIt = handleNode.getNodes(handleNode.getName()); nodeIt.hasNext(); ) {
+        for (NodeIterator nodeIt = handleNode.getNodes(handleNode.getName()); nodeIt.hasNext();) {
             variantNode = nodeIt.nextNode();
 
             if (variantNode != null && variantNode.isNodeType(HippoStdNodeType.NT_PUBLISHABLE)) {
@@ -88,7 +90,8 @@ public class JcrVersionUtils {
      * @return the root version of the {@code versionableNode}
      * @throws RepositoryException if unexpected repository exception occurs
      */
-    public static Version getRootVersion(final Node versionableNode, final List<Version> linearVersions) throws RepositoryException {
+    public static Version getRootVersion(final Node versionableNode, final List<Version> linearVersions)
+            throws RepositoryException {
         Version rootVersion = null;
 
         for (Version version : linearVersions) {
@@ -112,20 +115,23 @@ public class JcrVersionUtils {
      *         If {@code asOf} is null, then returns the latest version.
      * @throws RepositoryException if unexpected repository exception occurs
      */
-    public static Version getVersionAsOf(final Node versionableNode, final List<Version> linearVersions, final Calendar asOf) throws RepositoryException {
+    public static Version getVersionAsOf(final Node versionableNode, final List<Version> linearVersions,
+            final Calendar asOf) throws RepositoryException {
         Version asOfVersion = null;
 
         if (asOf == null) {
             return getRootVersion(versionableNode, linearVersions);
         } else {
             for (Version version : linearVersions) {
-                Calendar created = version.getCreated();
-                int compare = created.compareTo(asOf);
+                if (hasLiveFrozenNode(version)) {
+                    Calendar created = version.getCreated();
+                    int compare = created.compareTo(asOf);
 
-                if (compare <= 0) {
-                    asOfVersion = version;
-                } else {
-                    break;
+                    if (compare <= 0) {
+                        asOfVersion = version;
+                    } else {
+                        break;
+                    }
                 }
             }
         }
@@ -165,5 +171,26 @@ public class JcrVersionUtils {
         }
 
         return versions;
+    }
+
+    /**
+     * Returns true if the {@code version} has a frozen node which is the content of the "live" unpublished document.
+     * @param version version
+     * @return true if the {@code version} has a frozen node which is the content of the "live" unpublished document
+     * @throws RepositoryException if unexpected repository exception occurs
+     */
+    public static boolean hasLiveFrozenNode(final Version version) throws RepositoryException {
+        final Node frozenNode = version.getFrozenNode();
+
+        if (frozenNode == null) {
+            return false;
+        }
+
+        if (frozenNode.hasProperty(HippoStdNodeType.HIPPOSTD_STATESUMMARY)) {
+            String stateSummary = JcrUtils.getStringProperty(frozenNode, HippoStdNodeType.HIPPOSTD_STATESUMMARY, null);
+            return StringUtils.equals("live", stateSummary);
+        }
+
+        return false;
     }
 }
