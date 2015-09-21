@@ -36,6 +36,11 @@
       </table>
     </section>
     <section name="Release Notes">
+      <subsection name="0.1.3">
+        <ul>
+          <li>Exclude version(s) which was made during taking offline when getting version-as-of.</li>
+        </ul>
+      </subsection>
       <subsection name="0.1.2">
         <ul>
           <li>Proxying HippoNode for frozen node</li>
