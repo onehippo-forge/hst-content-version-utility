@@ -14,7 +14,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project name="HST Content Version Utilities">
+<project name="HST Content Version Utils">
 
   <skin>
     <groupId>org.onehippo.forge.mavenskin</groupId>

@@ -19,10 +19,10 @@
 -->
 <document>
   <properties>
-    <title>Installing HST Content Version Utilities</title>
+    <title>Installing HST Content Version Utils</title>
   </properties>
   <body>
-    <section name="Installing HST Content Version Utilities">
+    <section name="Installing HST Content Version Utils">
       <subsection name="Add Dependencies">
         <p>
           Make sure you have the forge Maven2 repository reference and dependency definition in the root pom.xml of your project.

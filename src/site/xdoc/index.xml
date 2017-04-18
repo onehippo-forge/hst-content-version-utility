@@ -19,10 +19,10 @@
 -->
 <document>
   <properties>
-    <title>HST Content Version Utilities</title>
+    <title>HST Content Version Utils</title>
   </properties>
   <body>
-    <section name="HST Content Version Utilities">
+    <section name="HST Content Version Utils">
       <p>
         This project provides utilities to retrieve versioned, frozen node content using HST Content Beans.
       </p>
