@@ -34,9 +34,10 @@
       <!-- SNIP -->
 
       <repository>
-        <id>hst-versionutil-maven-repo</id>
-        <name>HST Content Version Utilities Maven 2 Repository</name>
-        <url>http://forge.onehippo.org/svn/hst-versionutil/maven2/</url>
+        <id>hippo-maven2-forge</id>
+        <name>Hippo Maven 2 Forge repository</name>
+        <url>http://maven.onehippo.com/maven2-forge/</url>
+        <snapshots />
       </repository>
 
       <!-- SNIP -->
