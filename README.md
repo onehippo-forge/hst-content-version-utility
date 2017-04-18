@@ -1,5 +1,5 @@
 
-# HST Content Version Utilities
+# HST Content Version Utils
 
 This project provides utilities to retrieve versioned, frozen node content using HST Content Beans.
 
@@ -14,9 +14,3 @@ $ mvn clean site:site
 ```
 
 The output is in the docs directory; push it and GitHub Pages will serve the site automatically. 
-
-
-## DOCS TODO AFTER PROJECT MOVE FROM SVN
-In pom.xml 
-- On https://github.com/onehippo-forge/REPO_NAME/settings attach /docs to GitHub Pages 
-- Update https://onehippo-forge.github.io/project-list.html through https://github.com/onehippo-forge/onehippo-forge.github.io
