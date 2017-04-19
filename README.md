@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/onehippo-forge/hst-content-version-utils.svg?branch=develop)](https://travis-ci.org/onehippo-forge/hst-content-version-utils)
 
 # HST Content Version Utils
 
