@@ -30,8 +30,8 @@
           <th>Hippo CMS Release version</th>
         </tr>
         <tr>
-          <td>0.1.x</td>
-          <td>7.9+</td>
+          <td>0.x</td>
+          <td>12.x, 11.x, 10.x, 7.9.x</td>
         </tr>
       </table>
     </section>
