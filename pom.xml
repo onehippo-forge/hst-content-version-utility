@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2015 Hippo B.V. (http://www.onehippo.com)
+  Copyright 2015-2018 Hippo B.V. (http://www.onehippo.com)
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -27,14 +27,14 @@
   <properties>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.build.javaVersion>1.7</project.build.javaVersion>
+    <project.build.javaVersion>1.8</project.build.javaVersion>
 
     <javax.jcr.version>2.0</javax.jcr.version>
 
     <jackrabbit.version>2.7.0</jackrabbit.version>
 
-    <hippo.repository.version>2.26.15</hippo.repository.version>
-    <hippo.hst.version>2.28.12</hippo.hst.version>
+    <hippo.repository.version>5.4.0</hippo.repository.version>
+    <hippo.hst.version>5.4.0</hippo.hst.version>
 
     <commons-lang.version>2.6</commons-lang.version>
     <commons-proxy.version>1.0</commons-proxy.version>
