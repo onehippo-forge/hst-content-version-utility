@@ -21,7 +21,7 @@
   <description>HST Content Version Utils</description>
   <groupId>org.onehippo.forge.hst-versionutil</groupId>
   <artifactId>hst-versionutil</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <url>https://onehippo-forge.github.io/hst-content-version-utils/</url>
 
   <properties>
