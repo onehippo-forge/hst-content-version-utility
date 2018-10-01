@@ -17,11 +17,8 @@ package org.onehippo.forge.hst.version.util;
 
 import java.lang.reflect.Method;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
@@ -34,7 +31,6 @@ import org.apache.commons.proxy.ProxyFactory;
 import org.apache.jackrabbit.commons.iterator.NodeIteratorAdapter;
 import org.hippoecm.repository.HippoStdNodeType;
 import org.hippoecm.repository.api.HippoNode;
-import org.hippoecm.repository.api.Localized;
 
 
 /**
@@ -131,13 +127,8 @@ public final class FrozenNodeUtils {
                         }
                     }
                 } else if (HippoNode.class.equals(declaringClass)) {
-                    if ("getLocalizedName".equals(methodName)) {
+                    if ("getDisplayName".equals(methodName)) {
                         return frozenNode.getName();
-                    } else if ("getLocalizedNames".equals(methodName)) {
-                        final Map<Localized, String> names = new HashMap<>();
-                        names.put(Localized.getInstance(), frozenNode.getName());
-                        names.put(Localized.getInstance(Locale.getDefault()), frozenNode.getName());
-                        return names;
                     } else if ("getCanonicalNode".equals(methodName)) {
                         return frozenNode;
                     } else if ("pendingChanges".equals(methodName)) {
