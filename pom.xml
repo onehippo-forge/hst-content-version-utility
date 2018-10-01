@@ -21,7 +21,7 @@
   <description>HST Content Version Utils</description>
   <groupId>org.onehippo.forge.hst-versionutil</groupId>
   <artifactId>hst-versionutil</artifactId>
-  <version>0.1.4-SNAPSHOT</version>
+  <version>0.2.0-SNAPSHOT</version>
   <url>https://onehippo-forge.github.io/hst-content-version-utils/</url>
 
   <properties>
@@ -33,8 +33,8 @@
 
     <jackrabbit.version>2.7.0</jackrabbit.version>
 
-    <hippo.repository.version>5.4.0</hippo.repository.version>
-    <hippo.hst.version>5.4.0</hippo.hst.version>
+    <hippo.repository.version>3.1.0</hippo.repository.version>
+    <hippo.hst.version>3.1.0</hippo.hst.version>
 
     <commons-lang.version>2.6</commons-lang.version>
     <commons-proxy.version>1.0</commons-proxy.version>
