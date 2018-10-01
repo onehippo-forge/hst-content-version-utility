@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2015 Hippo B.V. (http://www.onehippo.com)
+  Copyright 2015-2018 Hippo B.V. (http://www.onehippo.com)
  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -21,20 +21,20 @@
   <description>HST Content Version Utils</description>
   <groupId>org.onehippo.forge.hst-versionutil</groupId>
   <artifactId>hst-versionutil</artifactId>
-  <version>0.1.4-SNAPSHOT</version>
+  <version>1.0.0</version>
   <url>https://onehippo-forge.github.io/hst-content-version-utils/</url>
 
   <properties>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.build.javaVersion>1.7</project.build.javaVersion>
+    <project.build.javaVersion>1.8</project.build.javaVersion>
 
     <javax.jcr.version>2.0</javax.jcr.version>
 
     <jackrabbit.version>2.7.0</jackrabbit.version>
 
-    <hippo.repository.version>2.26.15</hippo.repository.version>
-    <hippo.hst.version>2.28.12</hippo.hst.version>
+    <hippo.repository.version>4.1.0</hippo.repository.version>
+    <hippo.hst.version>4.1.0</hippo.hst.version>
 
     <commons-lang.version>2.6</commons-lang.version>
     <commons-proxy.version>1.0</commons-proxy.version>
@@ -59,6 +59,12 @@
     <plugin.source.version>2.2.1</plugin.source.version>
     <plugin.surefire.version>2.17</plugin.surefire.version>
     <plugin.surefire-report.version>2.17</plugin.surefire-report.version>
+
+    <plugin.checkstyle.version>2.6</plugin.checkstyle.version>
+    <plugin.cobertura.version>2.4</plugin.cobertura.version>
+    <plugin.findbugs.version>2.3.2</plugin.findbugs.version>
+
+    <extension.wagon-svn.version>1.9</extension.wagon-svn.version>
 
   </properties>
 
@@ -259,16 +265,6 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>${plugin.pmd.version}</version>
-        <configuration>
-          <linkXref>true</linkXref>
-          <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-          <targetJdk>${project.build.javaVersion}</targetJdk>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${plugin.javadoc.version}</version>
         <configuration>
@@ -331,9 +327,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <version>${plugin.site.version}</version>
-        <configuration>
-          <outputDirectory>docs</outputDirectory>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -357,6 +350,25 @@
     </plugins>
 
   </build>
+
+  <profiles>
+    <!-- Only for generating/publishing GitHub Site Pages into docs/ folder from master branch. -->
+    <profile>
+      <id>github.pages</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
+            <version>${plugin.site.version}</version>
+            <configuration>
+              <outputDirectory>docs</outputDirectory>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
 
