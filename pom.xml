@@ -22,7 +22,7 @@
   <groupId>org.onehippo.forge.hst-versionutil</groupId>
   <artifactId>hst-versionutil</artifactId>
   <version>1.0.1-SNAPSHOT</version>
-  <url>https://onehippo-forge.github.io/hst-content-version-utils/</url>
+  <url>https://bloomreach-forge.github.io/hst-content-version-utils/</url>
 
   <properties>
 
@@ -91,9 +91,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git@github.com:onehippo-forge/hst-content-version-utils.git</connection>
-    <developerConnection>scm:git:git@github.com:onehippo-forge/ihst-content-version-utils.git</developerConnection>
-    <url>https://github.com/onehippo-forge/hst-content-version-utils.git</url>
+    <connection>scm:git:git@github.com:bloomreach-forge/hst-content-version-utils.git</connection>
+    <developerConnection>scm:git:git@github.com:bloomreach-forge/ihst-content-version-utils.git</developerConnection>
+    <url>https://github.com/bloomreach-forge/hst-content-version-utils.git</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -104,7 +104,7 @@
 
   <ciManagement>
     <system>Travis CI</system>
-    <url>https://travis-ci.org/onehippo-forge/hst-content-version-utils</url>
+    <url>https://travis-ci.org/bloomreach-forge/hst-content-version-utils</url>
   </ciManagement>
 
   <distributionManagement>

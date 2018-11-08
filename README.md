@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/onehippo-forge/hst-content-version-utils.svg?branch=develop)](https://travis-ci.org/onehippo-forge/hst-content-version-utils)
+[![Build Status](https://travis-ci.org/bloomreach-forge/hst-content-version-utils.svg?branch=develop)](https://travis-ci.org/bloomreach-forge/hst-content-version-utils)
 
 # HST Content Version Utils
 
@@ -17,7 +17,7 @@ The output is in the ```target/site/``` directory by default. You can open ```ta
 
 # Documentation (GitHub Pages)
 
-Documentation is available at [https://onehippo-forge.github.io/content-export-import/](https://onehippo-forge.github.io/content-export-import/).
+Documentation is available at [https://bloomreach-forge.github.io/content-export-import/](https://bloomreach-forge.github.io/content-export-import/).
 
 You can generate the GitHub pages only from ```master``` branch by this command:
 
