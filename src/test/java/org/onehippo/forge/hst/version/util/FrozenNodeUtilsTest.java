@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2015 Hippo B.V. (http://www.onehippo.com)
+ *  Copyright 2015-2019 Hippo B.V. (http://www.onehippo.com)
  * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -34,11 +34,11 @@ public class FrozenNodeUtilsTest {
  
     @Before
     public void before() throws Exception {
-        MockNode versionStorage = MockNode.root().addMockNode("versionStorage1", "rep:versionStorage");
-        MockNode versionHistory = versionStorage.addMockNode("versionHistory1", "nt:versionHistory");
-        MockNode version = versionHistory.addMockNode("1.0", "nt:version");
+        MockNode versionStorage = MockNode.root().addNode("versionStorage1", "rep:versionStorage");
+        MockNode versionHistory = versionStorage.addNode("versionHistory1", "nt:versionHistory");
+        MockNode version = versionHistory.addNode("1.0", "nt:version");
 
-        frozenNode = version.addMockNode("jcr:frozenNode", "nt:frozenNode");
+        frozenNode = version.addNode("jcr:frozenNode", "nt:frozenNode");
         frozenNode.setProperty("jcr:frozenPrimaryType", "ns1:service");
         frozenNode.setProperty("ns1:title", "MRI");
         frozenNode.setProperty("ns1:variableid", "mri");
@@ -47,7 +47,7 @@ public class FrozenNodeUtilsTest {
         assertFalse(frozenNode.isNodeType("ns1:service"));
         assertEquals("nt:frozenNode", frozenNode.getPrimaryNodeType().getName());
 
-        MockNode description = frozenNode.addMockNode("ns1:description", "nt:frozenNode");
+        MockNode description = frozenNode.addNode("ns1:description", "nt:frozenNode");
         description.setProperty("jcr:frozenPrimaryType", "hippostd:html");
         description.setProperty("hippostd:content", "<p>Magnetic Resonance imaging</p>");
 
