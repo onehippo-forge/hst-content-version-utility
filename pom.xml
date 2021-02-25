@@ -39,7 +39,7 @@
     <commons-lang.version>2.6</commons-lang.version>
     <commons-proxy.version>1.0</commons-proxy.version>
 
-    <lib.junit.version>4.8.2</lib.junit.version>
+    <lib.junit.version>4.13.1</lib.junit.version>
     <lib.easymock.version>3.0</lib.easymock.version>
     <lib.slf4j.version>1.7.6</lib.slf4j.version>
     <lib.log4j.version>1.2.17</lib.log4j.version>
